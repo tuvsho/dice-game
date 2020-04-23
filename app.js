@@ -34,23 +34,48 @@ document.querySelector(".btn-roll").addEventListener("click", function() {
     document.getElementById("current-" + activePlayer).textContent = roundScore;
   } else {
     //1 buusan tul toglogchiin eeljiig ene heseg solij ogno
-    //omnoh toglogchiin roundscore g 0 bolgono
-    roundScore = 0;
-    document.getElementById("current-" + activePlayer).textContent = 0;
-
-    //toglogchiin eeljiig nogoo  toglogch ruu shiljuulne
-    //herew idewhtei toglogch ni 0 baiwal idewhtei toglogchiig 1 bolgo eswel 1 bol 0 bolgo
-    activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
-
-    //ulaan tsegiig shiljuuleh code bichne
-    document.querySelector(".player-0-panel").classList.toggle("active");
-    document.querySelector(".player-1-panel").classList.toggle("active");
-
-    //shoog alga bolgono
-    diceDom.style.display = "none";
+    switchToNextPlayer();
   }
 });
 
-// document.querySelector("#score-0").textContent = "<em>sss</em>";
+//Hold tovchnii  eventListener
+document.querySelector(".btn-hold").addEventListener("click", function() {
+  //ug toglogchiin roundScore iig global onoon deer nemj ogno
+  scores[activePlayer] = scores[activePlayer] + roundScore;
 
-console.log(dice);
+  // delgetsen  onoog i oorchilno
+  document.getElementById("score-" + activePlayer).textContent =
+    scores[activePlayer];
+
+  //ug toglogch hojison esehiig shalgadag heseg(100c ih bolson bol hojno)
+  if (scores[activePlayer] >= 10) {
+    //winner iig nerniih ni orond gargana
+    document.getElementById("name-" + activePlayer).textContent = "WINNER";
+    document
+      .querySelector(".player-" + activePlayer + "-panel")
+      .classList.add("winner");
+    document
+      .querySelector(".player-" + activePlayer + "-panel")
+      .classList.remove("active");
+  } else {
+    //roundScore iig 0 bolgono
+    switchToNextPlayer();
+  }
+});
+//dry zarcimiig urgelj sana
+function switchToNextPlayer() {
+  roundScore = 0;
+  document.getElementById("current-" + activePlayer).textContent = 0;
+
+  // toglogchiin eeljiig solino
+  //toglogchiin eeljiig nogoo  toglogch ruu shiljuulne
+  //herew idewhtei toglogch ni 0 baiwal idewhtei toglogchiig 1 bolgo eswel 1 bol 0 bolgo
+  activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
+
+  //ulaan tsegiig shiljuuleh code bichne
+  document.querySelector(".player-0-panel").classList.toggle("active");
+  document.querySelector(".player-1-panel").classList.toggle("active");
+
+  //shoog alga bolgono
+  diceDom.style.display = "none";
+}
