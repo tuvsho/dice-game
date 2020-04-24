@@ -1,3 +1,4 @@
+//code iin buh hesegt ashiglagdah GLobal huwisagchdiig zarlay
 //toglogchiin eeljiig solih heseg
 var activePlayer = 0;
 
@@ -8,13 +9,10 @@ var roundScore = 0;
 //shoonii taliig hadgalah huwisagch
 //<div class="player-score" id="score-0">43</div>
 
-document.getElementById("score-0").textContent = "0";
-document.getElementById("score-1").textContent = "0";
-document.getElementById("current-0").textContent = "0";
-document.getElementById("current-1").textContent = "0";
-
+//shoonii zurgiig documentoos  oloh heseg
 var diceDom = document.querySelector(".dice");
-diceDom.style.display = "none";
+
+initGame();
 
 //shoo shidaeh eventlistener
 document.querySelector(".btn-roll").addEventListener("click", function() {
@@ -77,5 +75,41 @@ function switchToNextPlayer() {
   document.querySelector(".player-1-panel").classList.toggle("active");
 
   //shoog alga bolgono
+  diceDom.style.display = "none";
+}
+
+//togloomiig shineer ehluuleh eventListener
+
+document.querySelector(".btn-new").addEventListener("click", initGame);
+
+function initGame() {
+  //toglogchiin eeljiig solih heseg
+  activePlayer = 0;
+  //тоглогчийн цуглуулсан оноог хадгаллдаг хувьсагч
+  scores = [0, 0];
+  //eeljind tsugluulj bui onoog hadgaldag huwisagch
+  roundScore = 0;
+  //shoonii taliig hadgalah huwisagch
+  //<div class="player-score" id="score-0">43</div>
+
+  document.getElementById("score-0").textContent = "0";
+  document.getElementById("score-1").textContent = "0";
+  document.getElementById("current-0").textContent = "0";
+  document.getElementById("current-1").textContent = "0";
+
+  //toglogchdiin neriig butsaaj gargah
+  document.getElementById("name-0").textContent = "Player 1";
+  document.getElementById("name-1").textContent = "Player 2";
+
+  //active playeriin winner classiin temdeglegeeg arilgah
+  document.querySelector(".player-0-panel").classList.remove("winner");
+  document.querySelector(".player-1-panel").classList.remove("winner");
+
+  //active playeriig 1r toglogchid ogno
+  document.querySelector(".player-0-panel").classList.remove("active");
+  document.querySelector(".player-1-panel").classList.remove("active");
+
+  document.querySelector(".player-0-panel").classList.add("active");
+
   diceDom.style.display = "none";
 }
