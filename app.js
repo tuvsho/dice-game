@@ -1,3 +1,6 @@
+//togloomiin tolwiig hadgaldag huwisagch zarlay
+var isNewGame;
+
 //code iin buh hesegt ashiglagdah GLobal huwisagchdiig zarlay
 //toglogchiin eeljiig solih heseg
 var activePlayer = 0;
@@ -13,52 +16,60 @@ var roundScore = 0;
 var diceDom = document.querySelector(".dice");
 
 initGame();
+isNewGame = true;
 
 //shoo shidaeh eventlistener
 document.querySelector(".btn-roll").addEventListener("click", function() {
-  //shoog 1-6 random toogoor uusgeed  dicenumber variabled hadgalj bn
-  var diceNumber = Math.floor(Math.random() * 6) + 1;
+  if (isNewGame) {
+    //shoog 1-6 random toogoor uusgeed  dicenumber variabled hadgalj bn
+    var diceNumber = Math.floor(Math.random() * 6) + 1;
 
-  //shoonii zurgiig web  deer  gargaj irne
-  diceDom.style.display = "block";
+    //shoonii zurgiig web  deer  gargaj irne
+    diceDom.style.display = "block";
 
-  //buusan sanamsargui toond  hargalzah shoonii zurgiig web deer gargaj irne
-  diceDom.src = "dice-" + diceNumber + ".png";
+    //buusan sanamsargui toond  hargalzah shoonii zurgiig web deer gargaj irne
+    diceDom.src = "dice-" + diceNumber + ".png";
 
-  //buusan too ni 1 s  ylgaatai bol idewhtei toglogchiin eeljiin onoog nemne
-  if (diceNumber !== 1) {
-    //1s ylgaatai buulaa buusan toog toglogchid nemj ogno
-    roundScore = roundScore + diceNumber;
-    document.getElementById("current-" + activePlayer).textContent = roundScore;
-  } else {
-    //1 buusan tul toglogchiin eeljiig ene heseg solij ogno
-    switchToNextPlayer();
-  }
+    //buusan too ni 1 s  ylgaatai bol idewhtei toglogchiin eeljiin onoog nemne
+    if (diceNumber !== 1) {
+      //1s ylgaatai buulaa buusan toog toglogchid nemj ogno
+      roundScore = roundScore + diceNumber;
+      document.getElementById(
+        "current-" + activePlayer
+      ).textContent = roundScore;
+    } else {
+      //1 buusan tul toglogchiin eeljiig ene heseg solij ogno
+      switchToNextPlayer();
+    }
+  } else alert("Тоглоом дууссан тул NewGame товчийг дарж дахин эхлүүлнэ үү");
 });
 
 //Hold tovchnii  eventListener
 document.querySelector(".btn-hold").addEventListener("click", function() {
-  //ug toglogchiin roundScore iig global onoon deer nemj ogno
-  scores[activePlayer] = scores[activePlayer] + roundScore;
+  if (isNewGame) {
+    //ug toglogchiin roundScore iig global onoon deer nemj ogno
+    scores[activePlayer] = scores[activePlayer] + roundScore;
 
-  // delgetsen  onoog i oorchilno
-  document.getElementById("score-" + activePlayer).textContent =
-    scores[activePlayer];
+    // delgetsen  onoog i oorchilno
+    document.getElementById("score-" + activePlayer).textContent =
+      scores[activePlayer];
 
-  //ug toglogch hojison esehiig shalgadag heseg(100c ih bolson bol hojno)
-  if (scores[activePlayer] >= 10) {
-    //winner iig nerniih ni orond gargana
-    document.getElementById("name-" + activePlayer).textContent = "WINNER";
-    document
-      .querySelector(".player-" + activePlayer + "-panel")
-      .classList.add("winner");
-    document
-      .querySelector(".player-" + activePlayer + "-panel")
-      .classList.remove("active");
-  } else {
-    //roundScore iig 0 bolgono
-    switchToNextPlayer();
-  }
+    //ug toglogch hojison esehiig shalgadag heseg(100c ih bolson bol hojno)
+    if (scores[activePlayer] >= 10) {
+      isNewGame = false;
+      //winner iig nerniih ni orond gargana
+      document.getElementById("name-" + activePlayer).textContent = "WINNER";
+      document
+        .querySelector(".player-" + activePlayer + "-panel")
+        .classList.add("winner");
+      document
+        .querySelector(".player-" + activePlayer + "-panel")
+        .classList.remove("active");
+    } else {
+      //roundScore iig 0 bolgono
+      switchToNextPlayer();
+    }
+  } else alert("Тоглоом дууссан тул NewGame товчийг дарж дахин эхлүүлнэ үү");
 });
 //dry zarcimiig urgelj sana
 function switchToNextPlayer() {
