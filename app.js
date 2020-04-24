@@ -55,7 +55,7 @@ document.querySelector(".btn-hold").addEventListener("click", function() {
       scores[activePlayer];
 
     //ug toglogch hojison esehiig shalgadag heseg(100c ih bolson bol hojno)
-    if (scores[activePlayer] >= 10) {
+    if (scores[activePlayer] >= 100) {
       isNewGame = false;
       //winner iig nerniih ni orond gargana
       document.getElementById("name-" + activePlayer).textContent = "WINNER";
